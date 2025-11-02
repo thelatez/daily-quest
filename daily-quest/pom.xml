@@ -10,9 +10,9 @@
 	</parent>
 	<groupId>backend</groupId>
 	<artifactId>daily-quest</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>daily-quest</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Daily-Quest project for Backend-programming class. Cred: Lauri Rantala</description>
 	<url/>
 	<licenses>
 		<license/>

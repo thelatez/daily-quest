@@ -33,7 +33,7 @@ public class BookController {
         return "newdaily";
     }
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/savedaily", method = RequestMethod.POST)
     public String saveDaily(Daily Daily) {
         dailyrepository.save(Daily);
         return "redirect:dailylist";

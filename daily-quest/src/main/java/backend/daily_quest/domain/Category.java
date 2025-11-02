@@ -16,7 +16,9 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long category_id;
+
     private String name;
+    
     @JsonIgnoreProperties("category")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
     private List<Daily> dailies;
@@ -32,8 +34,8 @@ public class Category {
         return category_id;
     }
 
-    public void setCategoryId(Long categoryId) {
-        this.category_id = categoryId;
+    public void setCategoryId(Long category_id) {
+        this.category_id = category_id;
     }
 
     public String getName() {
