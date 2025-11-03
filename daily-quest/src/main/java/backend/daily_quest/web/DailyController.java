@@ -11,11 +11,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class BookController {
+public class DailyController {
     private DailyRepository dailyrepository;
     private CategoryRepository categoryrepository;
 
-    public BookController(DailyRepository repository, CategoryRepository categoryrepository) {
+    public DailyController(DailyRepository repository, CategoryRepository categoryrepository) {
         this.dailyrepository = repository;
         this.categoryrepository = categoryrepository;
     }
