@@ -12,30 +12,30 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
 
 @Entity
-public class Category {
+public class State {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long category_id;
+    private Long state_id;
 
     private String name;
     
-    @JsonIgnoreProperties("category")
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
+    @JsonIgnoreProperties("state")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "state")
     private List<Daily> dailies;
 
-    public Category() {
+    public State() {
     }
     
-    public Category(String name) {
+    public State(String name) {
         this.name = name;
     }
 
-    public Long getCategoryId() {
-        return category_id;
+    public Long getState_id() {
+        return state_id;
     }
 
-    public void setCategoryId(Long category_id) {
-        this.category_id = category_id;
+    public void setState_id(Long state_id) {
+        this.state_id = state_id;
     }
 
     public String getName() {

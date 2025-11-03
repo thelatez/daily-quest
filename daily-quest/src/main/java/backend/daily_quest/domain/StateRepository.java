@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CategoryRepository extends CrudRepository<Category, Long> {
-    List<Category> findByName(String name); 
+public interface StateRepository extends CrudRepository<State, Long> {
+    List<State> findByName(String name); 
 }
+

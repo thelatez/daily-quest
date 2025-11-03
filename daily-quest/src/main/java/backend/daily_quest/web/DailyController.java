@@ -13,11 +13,11 @@ import java.util.Optional;
 @Controller
 public class DailyController {
     private DailyRepository dailyrepository;
-    private CategoryRepository categoryrepository;
+    private StateRepository staterepository;
 
-    public DailyController(DailyRepository repository, CategoryRepository categoryrepository) {
+    public DailyController(DailyRepository repository, StateRepository staterepository) {
         this.dailyrepository = repository;
-        this.categoryrepository = categoryrepository;
+        this.staterepository = staterepository;
     }
 
     @RequestMapping(value={"/", "/dailylist"})
@@ -29,7 +29,7 @@ public class DailyController {
     @RequestMapping(value = "/newdaily")
     public String newDaily(Model model) {
         model.addAttribute("daily", new Daily());
-        model.addAttribute("categories", categoryrepository.findAll());
+        model.addAttribute("states", staterepository.findAll());
         return "newdaily";
     }
 
@@ -55,7 +55,7 @@ public class DailyController {
     public String editDaily(@PathVariable("id") Long daily_id, Model model, Daily Daily) {
         Daily.setDaily_id(daily_id);
         model.addAttribute("daily", dailyrepository.findById(daily_id));
-        model.addAttribute("categories", categoryrepository.findAll());
+        model.addAttribute("states", staterepository.findAll());
         return "editdaily";
     }
 

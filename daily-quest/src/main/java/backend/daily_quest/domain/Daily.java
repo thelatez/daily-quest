@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import java.time.LocalDate;
 
 @Entity
 public class Daily {
@@ -13,21 +14,21 @@ public class Daily {
     private Long daily_id;
 
     private String name;
-    private String startTime; // when can be completed or skipped.
-    private String endTime; // when has to be completed or skipped.
-    private Category category; // ex. Home OR Work OR School etc.
-    private String state; // Completed OR Skipped OR Unfinished OR Missed.
+    private String description;
+    private LocalDate startTime; // when can be completed or skipped.
+    private LocalDate endTime; // when has to be completed or skipped.
+    private State state; // Completed OR Skipped OR Unfinished OR Missed.
     private Boolean canBeSkipped; // Can it be skipped?
     private Boolean penaltyForMissing; // Does some penalty occur if missed (or skipped?)
 
     public Daily() {
     }
 
-    public Daily(String name, String startTime, String endTime, Category category, String state, Boolean canBeSkipped, Boolean penaltyForMissing) {
+    public Daily(String name, String description, LocalDate startTime, LocalDate endTime, State state, Boolean canBeSkipped, Boolean penaltyForMissing) {
         this.name = name;
+        this.description = description;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.category = category;
         this.state = state;
         this.canBeSkipped = canBeSkipped;
         this.penaltyForMissing = penaltyForMissing;
@@ -41,19 +42,19 @@ public class Daily {
         this.name = name;
     }
 
-    public String getStartTime() {
+    public LocalDate getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(LocalDate startTime) {
         this.startTime = startTime;
     }
 
-    public String getEndTime() {
+    public LocalDate getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(LocalDate endTime) {
         this.endTime = endTime;
     }
 
@@ -65,19 +66,11 @@ public class Daily {
         this.daily_id = daily_id;
     }
 
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public String getState() {
+    public State getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(State state) {
         this.state = state;
     }
 
@@ -95,5 +88,13 @@ public class Daily {
 
     public void setPenaltyForMissing(Boolean penaltyForMissing) {
         this.penaltyForMissing = penaltyForMissing;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
