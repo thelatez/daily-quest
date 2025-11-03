@@ -1,41 +1,45 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Quest List</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Dailylist</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 </head>
 <body>
-    <div class="container mt-4">
-        <h1>Daily Quests</h1>
-        
-        <!-- Add new task form -->
-        <form class="mb-4" th:action="@{/newdaily}" method="post">
-            <div class="input-group">
-                <input type="text" class="form-control" name="description" placeholder="Enter new task">
-                <button class="btn btn-primary" type="submit">Add Daily</button>
-            </div>
+    <!--<div>
+        <h5>Logged in as: <span sec:authentication="name"></span></h5>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
         </form>
-
-        <!-- Task list -->
-        <div class="list-group">
-            <div th:each="daily : ${dailies}" class="list-group-item d-flex justify-content-between align-items-center">
-                <span th:text="${daily.description}">Task description</span>
-                <div class="btn-group">
-                    <form th:action="@{/completeDaily}" method="post" class="me-2">
-                        <input type="hidden" name="daily_id" th:value="${daily.id}">
-                        <button class="btn btn-success btn-sm" type="submit">Complete (not implemented)</button>
-                    </form>
-                    <form th:action="@{/deleteDaily}" method="post">
-                        <input type="hidden" name="daily_id" th:value="${daily.id}">
-                        <button class="btn btn-danger btn-sm" type="submit">Delete (not implemented)</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    </div>-->
+	<h2>Dailies</h2>
+    <table class="table table-striped">
+		<tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>State</th>
+            <th>Can Be Skipped?</th>
+            <th>Penalty for missing?</th>
+            <th></th> <!-- Empty rows to match styling up to edit and delete buttons-->
+            <th></th>
+		</tr>  
+        <tr th:each = "daily : ${dailies}">
+            <td th:text="${daily.daily_id}"></td> <!--I wanted id to be visible -->
+            <td th:text="${daily.name}"></td>
+            <td th:text="${daily.description}"></td>   		
+            <td th:text="${daily.startTime}"></td>
+            <td th:text="${daily.endTime}"></td>
+            <td th:text="${daily.state.name}"></td>
+            <td th:text="${daily.canBeSkipped}"></td>
+            <td th:text="${daily.penaltyForMissing}"></td>
+            <!--<td><a th:href="@{/edit/{id}(id=${daily.daily_id})}" class="btn btn-warning">Edit</a></td>
+            <td sec:authorize="hasAuthority ('ADMIN')"><a th:href="@{/delete/{id}(id=${book.bookId})}" class="btn btn-danger">Delete</a></td>-->
+        </tr>
+    </table>    
+    <a href="/newDaily" class="btn btn-success">Add daily</a>	
 </body>
-</html></div>
+</html>

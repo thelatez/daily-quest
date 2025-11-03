@@ -4,6 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+
 import java.time.LocalDate;
 
 @Entity
@@ -17,6 +20,9 @@ public class Daily {
     private String description;
     private LocalDate startTime; // when can be completed or skipped.
     private LocalDate endTime; // when has to be completed or skipped.
+
+    @ManyToOne
+    @JoinColumn(name = "state_id")
     private State state; // Completed OR Skipped OR Unfinished OR Missed.
     private Boolean canBeSkipped; // Can it be skipped?
     private Boolean penaltyForMissing; // Does some penalty occur if missed (or skipped?)

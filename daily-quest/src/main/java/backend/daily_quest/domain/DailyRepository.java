@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DailyRepository extends CrudRepository<Daily, Long> {
-    List<Daily> findByCategory(String category);
+    List<Daily> findByState(State state);
 }
