@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add book</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h2>New daily</h2>
+    <a href="/dailylist">Dailylist</a>
+    <div>
+		<form th:object="${daily}" th:action="@{savedaily}" action="#" method="post">
+            <label for="name">Name</label>
+            <input type="text" id="name" th:field="*{name}" /><br>
+
+            <label for="description">Description</label>
+            <input type="text" id="description" th:field="*{description}"/><br>
+
+            <label for="startTime">Start time</label>
+            <input type="text" id="startTime" th:field="*{startTime}"/><br>
+
+            <label for="endTime">End time</label>
+            <input type="text" id="endTime" th:field="*{endTime}"/><br>
+
+            <label for="canBeSkipped">Can be skipped?</label>
+            <input type="checkbox" id="canBeSkipped" th:field="*{canBeSkipped}"/><br>
+
+            <label for="penaltyForMissing">Penalty for missing?</label>
+            <input type="checkbox" id="penaltyForMissing" th:field="*{penaltyForMissing}"/><br>
+
+            <label for="statelist">State</label>
+            <select id="statelist" th:field="*{state}" class="form-control">
+                <option th:each="state: ${states}"
+                    th:value="${state.state_id}"
+                    th:text="${state.name}">
+                </option>
+            </select><br>
+            
+            <input class="btn btn-success" type="submit" value="Add"></input>
+        </form>
+    </div>    	
+</body>
+</html>

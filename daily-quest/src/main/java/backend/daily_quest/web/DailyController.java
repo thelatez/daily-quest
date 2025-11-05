@@ -7,8 +7,8 @@ import org.springframework.ui.Model;
 
 import backend.daily_quest.domain.*;
 
-import java.util.List;
-import java.util.Optional;
+//import java.util.List;
+//import java.util.Optional;
 
 @Controller
 public class DailyController {
@@ -57,23 +57,5 @@ public class DailyController {
         model.addAttribute("daily", dailyrepository.findById(daily_id));
         model.addAttribute("states", staterepository.findAll());
         return "editdaily";
-    }
-
-    //REST service to get all dailies.
-    @RequestMapping(value="/dailies")
-    public @ResponseBody List<Daily> dailyListRest() {
-        return (List<Daily>) dailyrepository.findAll();
-    }
-
-    // REST service to get Daily via daily_id.
-    @RequestMapping(value="/dailies/{id}")
-    public @ResponseBody Optional<Daily> findDailyRest(@PathVariable("id") Long daily_id) {	
-        return dailyrepository.findById(daily_id);
-    }       
-    
-    // REST service to save new daily
-    @RequestMapping(value="/dailies", method = RequestMethod.POST)
-    public @ResponseBody Daily saveNewDailyRest(@RequestBody Daily daily) {	
-        return dailyrepository.save(daily);
     }
 }

@@ -1,11 +1,11 @@
 package backend.daily_quest.domain;
 
-import jakarta.persistence.OneToMany;
+//import jakarta.persistence.OneToMany;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.CascadeType;
-import java.util.List;
+//import jakarta.persistence.CascadeType;
+//import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -20,8 +20,8 @@ public class State {
     private String name;
     
     @JsonIgnoreProperties("state")
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "state")
-    private List<Daily> dailies;
+    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "state")
+    //private List<Daily> dailies;
 
     public State() {
     }
@@ -46,12 +46,12 @@ public class State {
         this.name = name;
     }
 
-    public List<Daily> getDailies() {
+    /*public List<Daily> getDailies() {
         return dailies;
     }
 
     public void setDailies(List<Daily> dailies) {
         this.dailies = dailies;
-    }
+    }*/
 }
 

@@ -1,10 +1,8 @@
 <!DOCTYPE HTML>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"> <!--xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"-->
 <head>
     <title>Dailylist</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 </head>
 <body>
     <!--<div>
@@ -14,21 +12,21 @@
         </form>
     </div>-->
 	<h2>Dailies</h2>
-    <table class="table table-striped">
+    <table>
 		<tr>
-            <th>ID</th>
+            <!--<th>ID</th>-->
             <th>Name</th>
             <th>Description</th>
             <th>Start Time</th>
             <th>End Time</th>
             <th>State</th>
-            <th>Can Be Skipped?</th>
-            <th>Penalty for missing?</th>
+            <th>Skippable?</th>
+            <th>Penalty?</th>
             <th></th> <!-- Empty rows to match styling up to edit and delete buttons-->
             <th></th>
 		</tr>  
         <tr th:each = "daily : ${dailies}">
-            <td th:text="${daily.daily_id}"></td> <!--I wanted id to be visible -->
+            <!--<td th:text="${daily.daily_id}"></td> -->
             <td th:text="${daily.name}"></td>
             <td th:text="${daily.description}"></td>   		
             <td th:text="${daily.startTime}"></td>
@@ -36,10 +34,12 @@
             <td th:text="${daily.state.name}"></td>
             <td th:text="${daily.canBeSkipped}"></td>
             <td th:text="${daily.penaltyForMissing}"></td>
-            <!--<td><a th:href="@{/edit/{id}(id=${daily.daily_id})}" class="btn btn-warning">Edit</a></td>
-            <td sec:authorize="hasAuthority ('ADMIN')"><a th:href="@{/delete/{id}(id=${book.bookId})}" class="btn btn-danger">Delete</a></td>-->
+            <!--
+            <td><a th:href="@{/edit/{id}(id=${daily.daily_id})}" class="btn btn-warning">Edit</a></td>
+            <td sec:authorize="hasAuthority ('ADMIN')"><a th:href="@{/delete/{id}(id=${daily.daily_id})}" class="btn btn-danger">Delete</a></td>
+            -->
         </tr>
     </table>    
-    <a href="/newDaily" class="btn btn-success">Add daily</a>	
+    <a href="/newdaily">Add daily</a>
 </body>
 </html>
