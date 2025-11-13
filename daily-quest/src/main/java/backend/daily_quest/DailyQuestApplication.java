@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Bean;
 import backend.daily_quest.domain.*;
 
 import java.util.List;
-import java.time.LocalDate;
 
 @SpringBootApplication
 public class DailyQuestApplication {
@@ -23,19 +22,27 @@ public class DailyQuestApplication {
 	State missed = new State("Missed");
 
 	List<State> statelist = List.of(unfinished, skipped, completed, missed);
+	List<Daily> userlist;
+	List<Daily> userlist2;
+	List<Daily> adminlist;
 
 	@Bean
-	public CommandLineRunner demo(DailyRepository dailyrepository, StateRepository staterepository) {
+	public CommandLineRunner demo(DailyRepository dailyrepository, StateRepository staterepository, AppUserRepository userRepository) {
 		return (args) -> {
 			staterepository.saveAll(statelist);
 
-			dailyrepository.save(new Daily("Brush teeth", "", LocalDate.now(), LocalDate.now(), unfinished, false, true));
-			dailyrepository.save(new Daily("Take medication", "", LocalDate.now(), LocalDate.now(), unfinished, true, true));
+			
+			AppUser USER = new AppUser("user", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "USER", userlist);
+			AppUser USER2 = new AppUser("user2", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "USER", userlist2);
+			AppUser ADMIN = new AppUser("admin", "$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C", "ADMIN", adminlist);
+			userRepository.save(USER);
+			userRepository.save(USER2);
+			userRepository.save(ADMIN);
+			
 
-			//AppUser user1 = new AppUser("user", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "user@user.com", "USER");
-			//AppUser admin = new AppUser("admin", "$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C","admin@admin.com", "ADMIN");
-			//userRepository.save(user1);
-			//userRepository.save(admin);
+			dailyrepository.save(new Daily(USER, "Brush teeth", "", "", "", unfinished, false, true));
+			dailyrepository.save(new Daily(USER2, "Take medication", "", "", "", unfinished, true, true));
+
 		};
 	};
 }; 

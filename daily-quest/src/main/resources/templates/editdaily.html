@@ -1,27 +1,29 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Add book</title>
+    <title>Edit Daily</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 </head>
 <body>
-	<h2>New daily</h2>
-    <a href="/dailylist">Dailylist</a>
+	<h2>Edit Daily</h2>
     <div>
-		<form th:object="${daily}" th:action="@{/save}" action="#" method="post">
-            <!--<input type="hidden" th:field="*{appUser}" class="form-control" readonly="readonly" />-->
+        <form th:object="${daily}" th:action="@{/update}" action="#" method="post">
             
+            <input type="hidden" th:field="*{daily_id}" class="form-control" readonly="readonly" />
+            <div style="clear: both; display: block; height: 10px;"></div>
+
             <label for="name">Name</label>
             <input type="text" id="name" th:field="*{name}" /><br>
 
             <label for="description">Description</label>
-            <input type="text" id="description" th:field="*{description}"/><br>
+            <input type="text" id="description" th:field="*{description}" /><br>
 
             <label for="startTime">Start time</label>
-            <input type="text" id="startTime" th:field="*{startTime}"/><br>
+            <input type="text" id="startTime" th:field="*{startTime}" /><br>
 
             <label for="endTime">End time</label>
-            <input type="text" id="endTime" th:field="*{endTime}"/><br>
+            <input type="text" id="endTime" th:field="*{endTime}" /><br>
 
             <label for="canBeSkipped">Can be skipped?</label>
             <input type="checkbox" id="canBeSkipped" th:field="*{canBeSkipped}"/><br>
@@ -37,8 +39,8 @@
                 </option>
             </select><br>
             
-            <input class="btn btn-success" type="submit" value="Add"></input>
+            <input class="btn btn-success" type="submit" value="Save"></input>
         </form>
-    </div>    	
+	</div>  	
 </body>
 </html>

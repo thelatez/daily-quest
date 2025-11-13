@@ -5,13 +5,14 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-    <!--<div>
+    <div>
         <h5>Logged in as: <span sec:authentication="name"></span></h5>
         <form th:action="@{/logout}" method="post">
             <input type="submit" value="Sign Out"/>
         </form>
-    </div>-->
+    </div>
 	<h2>Dailies</h2>
+    <a href="/newdaily">Add daily</a>
     <table>
 		<tr>
             <!--<th>ID</th>-->
@@ -19,11 +20,9 @@
             <th>Description</th>
             <th>Start Time</th>
             <th>End Time</th>
-            <th>State</th>
             <th>Skippable?</th>
             <th>Penalty?</th>
-            <th></th> <!-- Empty rows to match styling up to edit and delete buttons-->
-            <th></th>
+            <th>State</th>
 		</tr>  
         <tr th:each = "daily : ${dailies}">
             <!--<td th:text="${daily.daily_id}"></td> -->
@@ -31,15 +30,12 @@
             <td th:text="${daily.description}"></td>   		
             <td th:text="${daily.startTime}"></td>
             <td th:text="${daily.endTime}"></td>
-            <td th:text="${daily.state.name}"></td>
             <td th:text="${daily.canBeSkipped}"></td>
             <td th:text="${daily.penaltyForMissing}"></td>
-            <!--
+            <td th:text="${daily.state.name}"></td>
             <td><a th:href="@{/edit/{id}(id=${daily.daily_id})}" class="btn btn-warning">Edit</a></td>
-            <td sec:authorize="hasAuthority ('ADMIN')"><a th:href="@{/delete/{id}(id=${daily.daily_id})}" class="btn btn-danger">Delete</a></td>
-            -->
+            <td><a th:href="@{/delete/{id}(id=${daily.daily_id})}" class="btn btn-danger">Delete</a></td>
         </tr>
     </table>    
-    <a href="/newdaily">Add daily</a>
 </body>
 </html>
