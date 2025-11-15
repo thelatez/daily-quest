@@ -7,8 +7,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 
-import java.time.LocalDateTime;
-
 import jakarta.validation.constraints.*;
 
 @Entity
