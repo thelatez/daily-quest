@@ -5,7 +5,6 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
 
 import backend.daily_quest.domain.*;
-import jakarta.validation.Valid;
 
 import java.security.Principal;
 import java.util.List;
@@ -57,19 +56,19 @@ public class DailyRestController {
         daily.setAppUser(currentUser);
         
         Long state_id = daily.getState().getState_id();
-    if (state_id == null) {
-        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "State id missing");
-    }
+        if (state_id == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "State_id missing");
+        }
 
         State state = staterepository.findById(state_id)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid state id"));
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid state_id"));
         daily.setState(state);
         return dailyrepository.save(daily);
     }
 
     // PUT DAILY (update an existing daily)
     @PutMapping("/api/dailies/{id}")
-    public Daily updateDaily(@PathVariable Long daily_id, @Valid @RequestBody Daily updatedDaily, Principal principal) {
+    public Daily updateDaily(@PathVariable Long daily_id, @RequestBody Daily updatedDaily, Principal principal) {
         Daily existingDaily = dailyrepository.findById(daily_id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
@@ -90,10 +89,9 @@ public class DailyRestController {
 
         if (updatedDaily.getState() != null) {
             State state = staterepository.findById(updatedDaily.getState().getState_id())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid state id"));
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid state_id"));
             existingDaily.setState(state);
         }
-
         return dailyrepository.save(existingDaily);
     }
 
