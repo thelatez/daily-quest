@@ -1,41 +1,146 @@
 <!DOCTYPE HTML>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"> <!--xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Dailylist</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        /* General font */
+        body {
+            font-family: 'Segoe UI', 'Arial Rounded MT Bold', 'Verdana', sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+
+        /* Header bar */
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .header-bar h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .header-bar .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-warning {
+            background-color: #f0ad4e;
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: #d9534f;
+            color: white;
+        }
+
+        /* Daily cards */
+        .daily-card {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+            background-color: white;
+        }
+
+        .daily-card h4 {
+            margin: 0 0 5px 0;
+        }
+
+        .daily-card p {
+            margin: 4px 0;
+        }
+
+        .daily-card .buttons {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Add daily button spacing */
+        .add-daily {
+            margin: 10px 0 20px 0;
+        }
+
+        /* Statistics card */
+        .stats-card {
+            background-color: #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <div>
-        <h5>Logged in as: <span sec:authentication="name"></span></h5>
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out"/>
-        </form>
+
+    <!-- Header -->
+    <div class="header-bar">
+        <h2>Dailies</h2>
+        <div class="user-info">
+            <span th:text="${username}"></span>
+            <form th:action="@{/logout}" method="post">
+                <input class="btn btn-danger" type="submit" value="Sign Out"/>
+            </form>
+        </div>
     </div>
-	<h2>Dailies</h2>
-    <a href="/newdaily">Add daily</a>
-    <table>
-		<tr>
-            <!--<th>ID</th>-->
-            <th>Name</th>
-            <th>Description</th>
-            <th>Start Time</th>
-            <th>End Time</th>
-            <th>Skippable?</th>
-            <th>Penalty?</th>
-            <th>State</th>
-		</tr>  
-        <tr th:each = "daily : ${dailies}">
-            <!--<td th:text="${daily.daily_id}"></td> -->
-            <td th:text="${daily.name}"></td>
-            <td th:text="${daily.description}"></td>   		
-            <td th:text="${daily.startTime}"></td>
-            <td th:text="${daily.endTime}"></td>
-            <td th:text="${daily.canBeSkipped}"></td>
-            <td th:text="${daily.penaltyForMissing}"></td>
-            <td th:text="${daily.state.name}"></td>
-            <td><a th:href="@{/edit/{id}(id=${daily.daily_id})}" class="btn btn-warning">Edit</a></td>
-            <td><a th:href="@{/delete/{id}(id=${daily.daily_id})}" class="btn btn-danger">Delete</a></td>
-        </tr>
-    </table>    
+
+    <!-- Add daily button -->
+    <a href="/newdaily" class="btn btn-success add-daily">Add daily</a>
+
+    <!-- No dailies message -->
+    <div th:if="${dailies.isEmpty()}">
+        <p>No dailies yet.</p>
+    </div>
+
+    <!-- Daily cards -->
+    <div th:if="${!dailies.isEmpty()}">
+        <div th:each="daily : ${dailies}" class="daily-card">
+            <h4 th:text="${daily.name}">Daily Name</h4>
+            <p th:text="${daily.description}">Description</p>
+            <p>Start: <span th:text="${daily.startTime}"></span> - End: <span th:text="${daily.endTime}"></span></p>
+            <p>Skippable: <span th:text="${daily.canBeSkipped}"></span> | Penalty: <span th:text="${daily.penaltyForMissing}"></span></p>
+            <p>State: <span th:text="${daily.state.name}"></span></p>
+
+            <div class="buttons">
+                <a th:href="@{/edit/{id}(id=${daily.daily_id})}" class="btn btn-warning">Edit</a>
+                <a th:href="@{/delete/{id}(id=${daily.daily_id})}" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics -->
+    <div class="stats-card">
+        <p>Completed dailies: <span th:text="${completedCount}"></span></p>
+        <p>Missed dailies: <span th:text="${missedCount}"></span></p>
+
+        <div th:if="${missedCount > 0}">
+            <p style="color:red;"><strong>Warning:</strong> You have missed some dailies today!</p>
+        </div>
+    </div>
+
 </body>
 </html>

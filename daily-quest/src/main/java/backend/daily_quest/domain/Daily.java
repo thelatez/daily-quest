@@ -8,6 +8,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 
 import jakarta.validation.constraints.*;
+import java.time.LocalTime;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Daily {
@@ -27,30 +30,37 @@ public class Daily {
     @Size(min = 0, max = 300, message = "Description can be at most 300 characters")
     private String description;
 
-    @NotNull(message = "Start time required")
-    private String startTime; // when can be completed or skipped.
+    @NotNull(message = "Start time is required (HH:mm)")
+    @DateTimeFormat(pattern = "HH:mm")
+    private LocalTime startTime; // when can be completed or skipped.
 
-    @NotNull(message = "End time required")
-    private String endTime; // when has to be completed or skipped.
+    @NotNull(message = "End time is required (HH:mm)")
+    @DateTimeFormat(pattern = "HH:mm")
+    private LocalTime endTime; // when has to be completed or skipped.
 
+    @NotNull(message = "State is required")
     @ManyToOne
     @JoinColumn(name = "state_id")
     private State state; // Completed OR Skipped OR Unfinished OR Missed.
+
+    @NotNull
     private Boolean canBeSkipped; // Can it be skipped?
+
+    @NotNull
     private Boolean penaltyForMissing; // Does some penalty occur if missed (or skipped?)
 
     public Daily() {
     }
 
-    public Daily(AppUser appUser, String name, String description, String startTime, String endTime, State state, Boolean canBeSkipped, Boolean penaltyForMissing) {
+    public Daily(AppUser appUser, String name, String description, LocalTime startTime, LocalTime endTime, State state, Boolean canBeSkipped, Boolean penaltyForMissing) {
         this.appUser = appUser;
         this.name = name;
         this.description = description;
         this.startTime = startTime;
         this.endTime = endTime;
         this.state = state;
-        this.canBeSkipped = canBeSkipped;
-        this.penaltyForMissing = penaltyForMissing;
+        this.canBeSkipped = false;
+        this.penaltyForMissing = false;
     }
     
     public String getName() {
@@ -61,19 +71,19 @@ public class Daily {
         this.name = name;
     }
 
-    public String getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 
-    public String getEndTime() {
+    public LocalTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
 

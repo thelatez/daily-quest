@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Add book</title>
+    <title>New Daily</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
@@ -9,7 +9,6 @@
     <a href="/dailylist">Dailylist</a>
     <div>
 		<form th:object="${daily}" th:action="@{/save}" action="#" method="post">
-            <!--<input type="hidden" th:field="*{appUser}" class="form-control" readonly="readonly" />-->
             
             <label for="name">Name</label>
             <input type="text" id="name" th:field="*{name}" /><br>
@@ -18,22 +17,25 @@
             <input type="text" id="description" th:field="*{description}"/><br>
 
             <label for="startTime">Start time</label>
-            <input type="text" id="startTime" th:field="*{startTime}"/><br>
+            <input type="time" id="startTime" th:field="*{startTime}"/><br>
 
             <label for="endTime">End time</label>
-            <input type="text" id="endTime" th:field="*{endTime}"/><br>
+            <input type="time" id="endTime" th:field="*{endTime}"/><br>
+
 
             <label for="canBeSkipped">Can be skipped?</label>
+            <input type="hidden" th:field="*{canBeSkipped}"/>
             <input type="checkbox" id="canBeSkipped" th:field="*{canBeSkipped}"/><br>
 
             <label for="penaltyForMissing">Penalty for missing?</label>
+            <input type="hidden" th:field="*{penaltyForMissing}"/>
             <input type="checkbox" id="penaltyForMissing" th:field="*{penaltyForMissing}"/><br>
 
-            <label for="statelist">State</label>
-            <select id="statelist" th:field="*{state.state_id}" class="form-control">
-                <option th:each="state: ${states}"
-                    th:value="${state.state_id}"
-                    th:text="${state.name}">
+            <label for="state">State</label>
+            <select id="state" th:field="*{state.state_id}" class="form-control">
+                <option th:each="s: ${states}"
+                    th:value="${s.state_id}"
+                    th:text="${s.name}">
                 </option>
             </select><br>
             

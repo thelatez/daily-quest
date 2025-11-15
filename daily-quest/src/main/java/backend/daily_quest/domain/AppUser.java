@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import jakarta.validation.constraints.*;
 
@@ -29,16 +30,15 @@ public class AppUser {
     private String role; // "USER" or "ADMIN"
 
     @OneToMany(mappedBy = "appUser")
-    private List<Daily> dailies;
+    private List<Daily> dailies = new ArrayList<>();
 
     public AppUser() {
     }
 
-    public AppUser(String username, String passwordHash, String role, List<Daily> dailies) {
+    public AppUser(String username, String passwordHash, String role) {
         this.username = username;
         this.passwordHash = passwordHash;
         this.role = role;
-        this.dailies = dailies;
     }
 
     public Long getAppUser_id() {

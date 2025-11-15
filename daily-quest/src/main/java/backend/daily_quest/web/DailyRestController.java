@@ -35,7 +35,7 @@ public class DailyRestController {
 
     // GET BY ID, requires permission to access (owner or admin)
     @GetMapping("/api/dailies/{id}")
-    public Daily getById(@PathVariable Long daily_id, Principal principal) {
+    public Daily getById(@PathVariable("id") Long daily_id, Principal principal) {
         Daily daily = dailyrepository.findById(daily_id)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
@@ -68,9 +68,9 @@ public class DailyRestController {
 
     // PUT DAILY (update an existing daily)
     @PutMapping("/api/dailies/{id}")
-    public Daily updateDaily(@PathVariable Long daily_id, @RequestBody Daily updatedDaily, Principal principal) {
+    public Daily updateDaily(@PathVariable("id") Long daily_id, @RequestBody Daily updatedDaily, Principal principal) {
         Daily existingDaily = dailyrepository.findById(daily_id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         AppUser currentUser = userrepository.findByUsername(principal.getName());
         boolean isOwner = existingDaily.getAppUser().getUsername().equals(currentUser.getUsername());
@@ -89,15 +89,15 @@ public class DailyRestController {
 
         if (updatedDaily.getState() != null) {
             State state = staterepository.findById(updatedDaily.getState().getState_id())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid state_id"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid state_id"));
             existingDaily.setState(state);
         }
         return dailyrepository.save(existingDaily);
     }
 
     // DELETE DAILY (admin or owner required)
-    @DeleteMapping("api/dailies/{id}")
-    public void deleteDaily(@PathVariable Long daily_id, Principal principal) {
+    @DeleteMapping("/api/dailies/{id}")
+    public void deleteDaily(@PathVariable("id") Long daily_id, Principal principal) {
         Daily daily = dailyrepository.findById(daily_id)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         
