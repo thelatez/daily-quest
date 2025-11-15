@@ -7,6 +7,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 
 import jakarta.validation.constraints.*;
@@ -22,6 +25,7 @@ public class AppUser {
     @Column(unique = true)
     private String username;
 
+    @JsonIgnore
     @NotBlank
     @Size(min = 4, max = 100, message = "Password must be 4-100 characters")
     private String passwordHash;
@@ -29,6 +33,7 @@ public class AppUser {
     @NotBlank
     private String role; // "USER" or "ADMIN"
 
+    @JsonIgnore
     @OneToMany(mappedBy = "appUser")
     private List<Daily> dailies = new ArrayList<>();
 

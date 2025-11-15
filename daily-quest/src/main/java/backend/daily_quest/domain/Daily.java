@@ -19,10 +19,6 @@ public class Daily {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long daily_id;
 
-    @ManyToOne
-    @JoinColumn(name = "appUser_id")
-    private AppUser appUser;
-
     @NotBlank(message = "Action must not be empty")
     @Size(min = 1, max = 50, message = "Action must be  1-50 characters")
     private String name; // what to do, ex. brush teeth. 
@@ -42,6 +38,10 @@ public class Daily {
     @ManyToOne
     @JoinColumn(name = "state_id")
     private State state; // Completed OR Skipped OR Unfinished OR Missed.
+    
+    @ManyToOne
+    @JoinColumn(name = "appUser_id")
+    private AppUser appUser;
 
     public Daily() {
     }

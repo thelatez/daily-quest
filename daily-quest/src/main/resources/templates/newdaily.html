@@ -10,16 +10,16 @@
     <div>
 		<form th:object="${daily}" th:action="@{/save}" action="#" method="post">
             
-            <label for="name">Name</label>
+            <label for="name">Name*</label>
             <input type="text" id="name" th:field="*{name}" /><br>
 
             <label for="description">Description</label>
             <input type="text" id="description" th:field="*{description}"/><br>
 
-            <label for="startTime">Start time</label>
+            <label for="startTime">Start time*</label>
             <input type="time" id="startTime" th:field="*{startTime}"/><br>
 
-            <label for="endTime">End time</label>
+            <label for="endTime">End time*</label>
             <input type="time" id="endTime" th:field="*{endTime}"/><br>
 
             <label for="state">State</label>

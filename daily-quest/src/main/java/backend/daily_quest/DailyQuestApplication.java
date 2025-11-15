@@ -11,11 +11,9 @@ import java.time.LocalTime;
 
 @SpringBootApplication
 public class DailyQuestApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(DailyQuestApplication.class, args);
 	}
-
 
 	@Bean
 	public CommandLineRunner demo(DailyRepository dailyrepository, StateRepository staterepository, AppUserRepository userRepository, PasswordEncoder passwordEncoder) {
@@ -55,9 +53,8 @@ public class DailyQuestApplication {
 			State missed = staterepository.findByName("Missed")
 				.orElseGet(() -> staterepository.save(new State("Missed")));
 
-			dailyrepository.save(new Daily(user, "Brush teeth", "Scrub scrub", LocalTime.of(1, 0), LocalTime.of(11, 0), unfinished));
+			dailyrepository.save(new Daily(user, "Brush teeth", "Scrub scrub", LocalTime.of(5, 0), LocalTime.of(11, 0), unfinished));
 			dailyrepository.save(new Daily(user, "Take medication", "Magnesium, B-vitamin", LocalTime.of(1, 0), LocalTime.of(12, 0), unfinished));
-
 		};
 	};
 }; 

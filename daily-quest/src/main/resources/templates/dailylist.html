@@ -20,7 +20,13 @@
             background-color: #007bff;
             color: white;
             border-radius: 8px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
         .header-bar h2 {
@@ -28,7 +34,7 @@
             font-size: 1.5rem;
         }
 
-        .header-bar .user-info {
+        .user-info {
             display: flex;
             align-items: center;
             gap: 10px;
@@ -57,14 +63,20 @@
             color: white;
         }
 
-        /* Daily cards */
+        /* Responsive card grid */
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        /* Individual card */
         .daily-card {
             border: 1px solid #ccc;
             border-radius: 8px;
             padding: 15px;
-            margin-bottom: 15px;
-            box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
             background-color: white;
+            box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
         }
 
         .daily-card h4 {
@@ -75,16 +87,10 @@
             margin: 4px 0;
         }
 
-        .daily-card .buttons {
-            margin-top: 10px;
+        .buttons {
+            margin-top: 12px;
             display: flex;
             gap: 10px;
-        }
-
-        /* Add daily button spacing */
-        .add-daily {
-            margin: 10px 0 20px 0;
-            margin-bottom: 25px;
         }
 
         /* Statistics card */
@@ -92,7 +98,8 @@
             background-color: #e0e0e0;
             border-radius: 8px;
             padding: 15px;
-            margin-top: 20px;
+            margin-top: 25px;
+            max-width: 400px;
         }
     </style>
 </head>
@@ -100,7 +107,11 @@
 
     <!-- Header -->
     <div class="header-bar">
-        <h2>Dailies</h2>
+        <div class="header-left">
+            <h2>Dailies</h2>
+            <a href="/newdaily" class="btn btn-success">Add daily</a>
+        </div>
+
         <div class="user-info">
             <span th:text="${username}"></span>
             <form th:action="@{/logout}" method="post">
@@ -109,21 +120,22 @@
         </div>
     </div>
 
-    <!-- Add daily button -->
-    <a href="/newdaily" class="btn btn-success add-daily">Add daily</a>
-    <div></div>
-
     <!-- No dailies message -->
     <div th:if="${dailies.isEmpty()}">
         <p>No dailies yet.</p>
     </div>
 
     <!-- Daily cards -->
-    <div th:if="${!dailies.isEmpty()}">
+    <div class="card-container" th:if="${!dailies.isEmpty()}">
         <div th:each="daily : ${dailies}" class="daily-card">
             <h4 th:text="${daily.name}">Daily Name</h4>
             <p th:text="${daily.description}">Description</p>
-            <p>Start: <span th:text="${daily.startTime}"></span> - End: <span th:text="${daily.endTime}"></span></p>
+
+            <p>
+                Start: <span th:text="${daily.startTime}"></span><br/>
+                End: <span th:text="${daily.endTime}"></span>
+            </p>
+
             <p>State: <span th:text="${daily.state.name}"></span></p>
 
             <div class="buttons">
