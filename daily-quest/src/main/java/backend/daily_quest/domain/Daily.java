@@ -43,24 +43,16 @@ public class Daily {
     @JoinColumn(name = "state_id")
     private State state; // Completed OR Skipped OR Unfinished OR Missed.
 
-    @NotNull
-    private Boolean canBeSkipped; // Can it be skipped?
-
-    @NotNull
-    private Boolean penaltyForMissing; // Does some penalty occur if missed (or skipped?)
-
     public Daily() {
     }
 
-    public Daily(AppUser appUser, String name, String description, LocalTime startTime, LocalTime endTime, State state, Boolean canBeSkipped, Boolean penaltyForMissing) {
+    public Daily(AppUser appUser, String name, String description, LocalTime startTime, LocalTime endTime, State state) {
         this.appUser = appUser;
         this.name = name;
         this.description = description;
         this.startTime = startTime;
         this.endTime = endTime;
         this.state = state;
-        this.canBeSkipped = false;
-        this.penaltyForMissing = false;
     }
     
     public String getName() {
@@ -101,22 +93,6 @@ public class Daily {
 
     public void setState(State state) {
         this.state = state;
-    }
-
-    public Boolean getCanBeSkipped() {
-        return canBeSkipped;
-    }
-
-    public void setCanBeSkipped(Boolean canBeSkipped) {
-        this.canBeSkipped = canBeSkipped;
-    }
-
-    public Boolean getPenaltyForMissing() {
-        return penaltyForMissing;
-    }
-
-    public void setPenaltyForMissing(Boolean penaltyForMissing) {
-        this.penaltyForMissing = penaltyForMissing;
     }
 
     public String getDescription() {

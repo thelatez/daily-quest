@@ -7,8 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import backend.daily_quest.domain.*;
-
-import java.util.List;
 import java.time.LocalTime;
 
 @SpringBootApplication
@@ -18,7 +16,7 @@ public class DailyQuestApplication {
 		SpringApplication.run(DailyQuestApplication.class, args);
 	}
 
-	
+
 	@Bean
 	public CommandLineRunner demo(DailyRepository dailyrepository, StateRepository staterepository, AppUserRepository userRepository, PasswordEncoder passwordEncoder) {
 		return (args) -> {
@@ -56,11 +54,9 @@ public class DailyQuestApplication {
 				.orElseGet(() -> staterepository.save(new State("Completed")));
 			State missed = staterepository.findByName("Missed")
 				.orElseGet(() -> staterepository.save(new State("Missed")));
-			State skipped = staterepository.findByName("Skipped")
-				.orElseGet(() -> staterepository.save(new State("Skipped")));
 
-			dailyrepository.save(new Daily(user, "Brush teeth", "Scrub scrub", LocalTime.of(1, 0), LocalTime.of(11, 0), unfinished, false, true));
-			dailyrepository.save(new Daily(user, "Take medication", "Magnesium, B-vitamin", LocalTime.of(1, 0), LocalTime.of(12, 0), unfinished, true, true));
+			dailyrepository.save(new Daily(user, "Brush teeth", "Scrub scrub", LocalTime.of(1, 0), LocalTime.of(11, 0), unfinished));
+			dailyrepository.save(new Daily(user, "Take medication", "Magnesium, B-vitamin", LocalTime.of(1, 0), LocalTime.of(12, 0), unfinished));
 
 		};
 	};

@@ -22,15 +22,6 @@
             <label for="endTime">End time</label>
             <input type="time" id="endTime" th:field="*{endTime}"/><br>
 
-
-            <label for="canBeSkipped">Can be skipped?</label>
-            <input type="hidden" th:field="*{canBeSkipped}"/>
-            <input type="checkbox" id="canBeSkipped" th:field="*{canBeSkipped}"/><br>
-
-            <label for="penaltyForMissing">Penalty for missing?</label>
-            <input type="hidden" th:field="*{penaltyForMissing}"/>
-            <input type="checkbox" id="penaltyForMissing" th:field="*{penaltyForMissing}"/><br>
-
             <label for="state">State</label>
             <select id="state" th:field="*{state.state_id}" class="form-control">
                 <option th:each="s: ${states}"

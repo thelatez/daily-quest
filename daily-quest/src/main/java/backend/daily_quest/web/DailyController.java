@@ -18,8 +18,8 @@ public class DailyController {
     private StateRepository staterepository;
     private AppUserRepository userrepository;
 
-    public DailyController(DailyRepository repository, StateRepository staterepository, AppUserRepository userrepository) {
-        this.dailyrepository = repository;
+    public DailyController(DailyRepository dailyrepository, StateRepository staterepository, AppUserRepository userrepository) {
+        this.dailyrepository = dailyrepository;
         this.staterepository = staterepository;
         this.userrepository = userrepository;
     }
@@ -58,9 +58,6 @@ public class DailyController {
         State defaultState = staterepository.findByName("Unfinished").orElse(null);
         daily.setState(defaultState);
 
-        daily.setCanBeSkipped(false);
-        daily.setPenaltyForMissing(false);
-
         model.addAttribute("daily", daily); // <-- use the same instance
         model.addAttribute("states", staterepository.findAll());
         return "newdaily";
@@ -83,8 +80,6 @@ public class DailyController {
         } else {
             throw new RuntimeException("State must be selected");
         }
-        if (daily.getCanBeSkipped() == null) daily.setCanBeSkipped(false);
-        if (daily.getPenaltyForMissing() == null) daily.setPenaltyForMissing(false);
 
         dailyrepository.save(daily);
         return "redirect:/dailylist";
@@ -111,8 +106,6 @@ public class DailyController {
         current.setDescription(updatedDaily.getDescription());
         current.setStartTime(updatedDaily.getStartTime());
         current.setEndTime(updatedDaily.getEndTime());
-        current.setCanBeSkipped(updatedDaily.getCanBeSkipped());
-        current.setPenaltyForMissing(updatedDaily.getPenaltyForMissing());
 
         if (updatedDaily.getState() != null && updatedDaily.getState().getState_id() != null) {
             State state = staterepository.findById(updatedDaily.getState().getState_id())

@@ -15,8 +15,8 @@ public class DailyRestController {
     private StateRepository staterepository;
     private AppUserRepository userrepository;
 
-    public DailyRestController(DailyRepository repository, StateRepository staterepository, AppUserRepository userrepository) {
-        this.dailyrepository = repository;
+    public DailyRestController(DailyRepository dailyrepository, StateRepository staterepository, AppUserRepository userrepository) {
+        this.dailyrepository = dailyrepository;
         this.staterepository = staterepository;
         this.userrepository = userrepository;
     }
@@ -84,8 +84,6 @@ public class DailyRestController {
         existingDaily.setDescription(updatedDaily.getDescription());
         existingDaily.setStartTime(updatedDaily.getStartTime());
         existingDaily.setEndTime(updatedDaily.getEndTime());
-        existingDaily.setCanBeSkipped(updatedDaily.getCanBeSkipped());
-        existingDaily.setPenaltyForMissing(updatedDaily.getPenaltyForMissing());
 
         if (updatedDaily.getState() != null) {
             State state = staterepository.findById(updatedDaily.getState().getState_id())
