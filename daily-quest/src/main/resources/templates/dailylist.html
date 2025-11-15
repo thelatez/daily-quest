@@ -84,6 +84,7 @@
         /* Add daily button spacing */
         .add-daily {
             margin: 10px 0 20px 0;
+            margin-bottom: 25px;
         }
 
         /* Statistics card */
@@ -110,6 +111,7 @@
 
     <!-- Add daily button -->
     <a href="/newdaily" class="btn btn-success add-daily">Add daily</a>
+    <div></div>
 
     <!-- No dailies message -->
     <div th:if="${dailies.isEmpty()}">

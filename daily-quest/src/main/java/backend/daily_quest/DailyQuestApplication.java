@@ -18,6 +18,7 @@ public class DailyQuestApplication {
 		SpringApplication.run(DailyQuestApplication.class, args);
 	}
 
+	
 	@Bean
 	public CommandLineRunner demo(DailyRepository dailyrepository, StateRepository staterepository, AppUserRepository userRepository, PasswordEncoder passwordEncoder) {
 		return (args) -> {
