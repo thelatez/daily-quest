@@ -131,6 +131,11 @@
             <h4 th:text="${daily.name}">Daily Name</h4>
             <p th:text="${daily.description}">Description</p>
 
+            <!-- Show owner only if admin -->
+            <p th:if="${isAdmin}">
+                User: <span th:text="${daily.appUser.username}"></span>
+            </p>
+
             <p>
                 Start: <span th:text="${daily.startTime}"></span><br/>
                 End: <span th:text="${daily.endTime}"></span>
@@ -144,6 +149,7 @@
             </div>
         </div>
     </div>
+
 
     <!-- Statistics -->
     <div class="stats-card">

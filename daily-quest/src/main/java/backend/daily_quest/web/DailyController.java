@@ -48,6 +48,7 @@ public class DailyController {
         model.addAttribute("username", currentUser.getUsername());
         model.addAttribute("completedCount", completedCount);
         model.addAttribute("missedCount", missedCount);
+        model.addAttribute("isAdmin", currentUser.getRole().equals("ADMIN"));
         return "dailylist";
     }
 
