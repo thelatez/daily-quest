@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.JoinColumn;
 
 import jakarta.validation.constraints.*;
@@ -16,7 +17,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Daily {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "daily_seq")
+    @SequenceGenerator(name = "daily_seq", sequenceName = "daily_seq", allocationSize = 1)
     private Long daily_id;
 
     @NotBlank(message = "Action must not be empty")
