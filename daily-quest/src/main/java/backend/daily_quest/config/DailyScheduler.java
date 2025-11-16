@@ -7,6 +7,7 @@ import backend.daily_quest.domain.StateRepository;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Component
@@ -20,14 +21,14 @@ public class DailyScheduler {
         this.staterepository = staterepository;
     }
 
-    @Scheduled(fixedRate = 60_000) // 60 seconds
+    @Scheduled(fixedRate = 60_000, zone = "Europe/Helsinki") // 60 seconds
     public void markMissedDailies() {
+        System.out.println("Scheduler running at: " + LocalDateTime.now());
         Iterable<Daily> dailies = dailyrepository.findAll();
         State missedState = staterepository.findByName("Missed").orElse(null);
-        State skippedState = staterepository.findByName("Skipped").orElse(null);
         State completedState = staterepository.findByName("Completed").orElse(null);
 
-        if (missedState == null || completedState == null || skippedState == null) {
+        if (missedState == null || completedState == null) {
             return;
         }
 
