@@ -1,31 +1,17 @@
-# Use Eclipse Temurin JDK 21 (Rahti-compatible)
-FROM eclipse-temurin:21-jdk AS builder
-
-# Create work directory
-WORKDIR /app
+FROM eclipse-temurin:21-jdk AS build
 
 # Install Maven
 RUN apt-get update && apt-get install -y maven
 
-# Copy Maven wrapper and project files
-COPY mvnw .
-COPY ./daily-quest/.mvn .mvn
-COPY ./daily-quest/pom.xml .
-COPY ./daily-quest/src src
+#Copy project files
+COPY ./daily-quest/src /home/app/src
+COPY ./daily-quest/pom.xml /home/app
 
-# Build the application
-RUN ./mvnw -Dmaven.test.skip=true package
+#Build project
+RUN mvn -f /home/app/pom.xml clean package
+#RUN mvn clean package -DskipTests
 
-# --- Runtime image ---
-FROM eclipse-temurin:21-jre
-
-WORKDIR /app
-
-# Copy only the built jar
-COPY --from=builder /app/target/*.jar app.jar
-
-# Expose port (optional on Rahti)
+FROM eclipse-temurin:21-jdk
+COPY --from=build /home/app/target/daily-quest-0.0.1.jar /usr/local/lib/daily-quest.jar
 EXPOSE 8080
-
-# Run Spring Boot
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "/usr/local/lib/daily-quest.jar"]
